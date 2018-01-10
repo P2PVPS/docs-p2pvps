@@ -11,7 +11,3 @@ const port = 8000;
 const ExpressServer = require("./lib/express-server.js");
 const expressServer = new ExpressServer(app, port);
 expressServer.start();
-
-/* Start up the Express web server */
-app.listen(process.env.PORT || port);
-console.log(`Express started on port ${port}`);
