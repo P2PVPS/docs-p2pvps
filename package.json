@@ -8,7 +8,8 @@
   },
   "author": "chris.troutner@gmail.com",
   "license": "MIT",
-  "devDependencies": {
-    "docpress": "0.7.1"
+  "devDependencies": {},
+  "dependencies": {
+    "mdoc": "^0.5.3"
   }
 }
