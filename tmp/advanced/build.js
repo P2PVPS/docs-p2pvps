@@ -8,7 +8,7 @@ mdoc.run({
 
     // === required settings === //
 
-    inputDir : '../basic/content',
+    inputDir : 'content',
     outputDir : 'doc',
 
 
@@ -43,12 +43,12 @@ mdoc.run({
     include : '*.mdown,*.md,*.markdown',
 
     // pattern that matches files that shouldn't be parsed
-    exclude : 'array.*',
+    //exclude : 'array.*',
 
-    filterFiles : function(fileInfo) {
+    //filterFiles : function(fileInfo) {
         // return `false` to remove files and `true` to keep them
-        return (/math/).test(fileInfo.input);
-    },
+    //    return (/math/).test(fileInfo.input);
+    //},
 
     // sets which heading should be treated as a section start (and is used for
     // TOC) defaults to `2`

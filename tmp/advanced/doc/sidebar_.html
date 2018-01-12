@@ -4,6 +4,33 @@
 </div>
 <div class="bd">
     <div class="toc">
+            <h3 class="toc-mod-title"><a href="array_doc.html">array</a></h3>
+            <div class="toc-list">
+                <a class="toc-item" href="array_doc.html#compact">
+                    <h4>compact(arr):Array</h4>
+                    <span class="desc">Returns a new Array without any <code>null</code> or <code>undefined</code> values. Note that it will keep empty strings and other falsy values (simillar to Ruby Array#compact).</span>
+                </a>
+                <a class="toc-item" href="array_doc.html#contains">
+                    <h4>contains(arr, value):Boolean</h4>
+                    <span class="desc">Checks if Array contains value. Alias to <code>indexOf(arr, val) !== -1</code>.</span>
+                </a>
+                <a class="toc-item" href="array_doc.html#every">
+                    <h4>every(arr, callback, [thisObj]):Array</h4>
+                    <span class="desc">Crossbrowser ES5 <code>Array.every()</code>.</span>
+                </a>
+                <a class="toc-item" href="array_doc.html#filter">
+                    <h4>filter(arr, callback, [thisObj]):Array</h4>
+                    <span class="desc">Crossbrowser ES5 <code>Array.filter()</code>.</span>
+                </a>
+                <a class="toc-item" href="array_doc.html#forEach">
+                    <h4>forEach(arr, callback, [thisObj]):void</h4>
+                    <span class="desc">Crossbrowser ES5 <code>Array.forEach()</code>.</span>
+                </a>
+                <a class="toc-item" href="array_doc.html#indexOf">
+                    <h4>indexOf(arr, item, [fromIndex]):Number</h4>
+                    <span class="desc">Crossbrowser ES5 <code>Array.indexOf()</code>.</span>
+                </a>
+            </div>
             <h3 class="toc-mod-title"><a href="math_doc.html">math</a></h3>
             <div class="toc-list">
                 <a class="toc-item" href="math_doc.html#clamp">
@@ -41,6 +68,33 @@
                 <a class="toc-item" href="math_doc.html#snap">
                     <h4>snap(val, step):Number</h4>
                     <span class="desc">Snap value to full steps.</span>
+                </a>
+            </div>
+            <h3 class="toc-mod-title"><a href="number_doc.html">number</a></h3>
+            <div class="toc-list">
+                <a class="toc-item" href="number_doc.html#enforcePrecision">
+                    <h4>enforcePrecision(val, nDecimalDigits):Number</h4>
+                    <span class="desc">Enforce a specific amount of decimal digits and also fix floating point rounding issues.</span>
+                </a>
+                <a class="toc-item" href="number_doc.html#MAX_INT">
+                    <h4>MAX_INT:Number</h4>
+                    <span class="desc">Maximum 32-bit signed integer value. <code>Math.pow(2, 31) - 1</code></span>
+                </a>
+                <a class="toc-item" href="number_doc.html#MAX_UINT">
+                    <h4>MAX_UINT:Number</h4>
+                    <span class="desc">Maximum 32-bit unsigned integer value. <code>Math.pow(2, 32) - 1</code></span>
+                </a>
+                <a class="toc-item" href="number_doc.html#MIN_INT">
+                    <h4>MIN_INT:Number</h4>
+                    <span class="desc">Minimum 32-bit signed integer value. <code>Math.pow(2, 31) * -1</code>.</span>
+                </a>
+                <a class="toc-item" href="number_doc.html#pad">
+                    <h4>pad(n, minLength):String</h4>
+                    <span class="desc">Add padding zeros if <code>n.length</code> &lt; <code>minLength</code>.</span>
+                </a>
+                <a class="toc-item" href="number_doc.html#sign">
+                    <h4>sign(val):Number</h4>
+                    <span class="desc">Returns <code>-1</code> if value is negative and <code>1</code> if value is positive. Useful for multiplications.</span>
                 </a>
             </div>
     </div>
