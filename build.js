@@ -3,7 +3,9 @@
 require('mdoc').run({
   inputDir: 'docs',
   outputDir: 'dist/views',
-  assetsPath: 'dist/assets',
+
+  indexContentPath : 'README.md',
+
   mapOutName: function (outputName) {
    return outputName.replace('.html', '.handlebars');
   }
