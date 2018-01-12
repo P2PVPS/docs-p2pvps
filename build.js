@@ -14,7 +14,7 @@ mdoc.run({
 
     // === basic settings === //
 
-    baseTitle : 'mdoc example advanced settings',
+    baseTitle : 'P2P VPS Documentation',
     //indexContentPath : '../basic/index.mdown',
 
 
@@ -26,7 +26,7 @@ mdoc.run({
     assetsPath : 'custom_assets',
 
     //indexContent will take precedence over `indexContentPath`
-    indexContent : '<h1>Custom Template</h1><p>Example of a custom template and advanced settings.</p>',
+    indexContent : '<h1>P2P VPS Documentation</h1><p>Welcome to the official documenation of the P2P VPS project.</p>',
 
     mapOutName : function(outputName) {
         //change file output name

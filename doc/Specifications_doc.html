@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Overview : P2P VPS Documentation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="content">
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="overview">Overview</h1>
+<p>This document contains a high-level technical overview of the P2P VPS suit of
+software. The full suit consists of a set of server, client, and server deployment software.</p>
+<p><em>The client software</em> has two targets: Raspberry Pi minicomputers and VirtualBox
+VMs running Ubuntu Linux. The client software can be adapted to operate on
+any device that is capable of running Docker. The focus of the client software is to:</p>
+<ul>
+<li>Create a basic Linux environment with a command line interface (CLI).</li>
+<li>Establish a reverse SSH connection with the server, to provide the CLI to the renter.</li>
+<li>Establish a <a href="https://github.com/localtunnel/localtunnel">LocalTunnel</a> connection
+to the server so the device can serve webpages, web apps, and distributed apps
+(dapps), accessible from the general internet.</li>
+</ul>
+<p><em>The server software</em> is a Vue.js-based theme for <a href="http://connextcms.com">ConnextCMS</a>.
+It gives <em>Device Owners</em> a dashboard for managing the devices they rent out on the marketplace.
+It also gives prospective <em>Renters</em> an easy way to filter VPSs by benchmarks, in order to find the
+best price for their desired use. It's primary functions are:</p>
+<ul>
+<li>Register incoming connections from client devices.</li>
+<li>Negotiate the ports used in the reverse-SSH connection.</li>
+<li>Create listing on the OpenBazaar network to allow Client devices to be rented.</li>
+<li>Establish connection with other servers.</li>
+</ul>
+<p><em>The server deployment software</em> is a collection of Dockerized packages, all orchestrated
+with Docker Compose. This software is targeted for cloud VPS hosts like Digital Ocean, Vultr,
+AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
+<ul>
+<li><a href="http://connextcms.com">ConnextCMS</a> running with the server software explained above.</li>
+<li>A MongoDB instance for managing data.</li>
+<li>An <a href="http://openbazaar.org">OpenBazaar</a> instance for conducting rental transactions.</li>
+<li>A Listing Manager that maintains the OpenBazaar store inventory and fulfills transactions.</li>
+<li>An SSH server for managing reverse SSH tunnel connections.</li>
+<li>A LocalTunnel server for managing the networking of HTTP (port 80) and HTTPS (port 443) connections.</li>
+</ul>
+<p>A simple diagram of a P2P VPS Marketplace:</p>
+<p><img src="images/simple-diagram.jpg?raw=true" alt="Simple server client diagram" title="Simple server client diagram" /></p>
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+<ul>
+<li><a href="#Definitions">Definitions</a></li>
+<li>[Client Overview](#Client Overview)</li>
+<li>[Server Overview](#Server Overview)</li>
+<li>[High Level System Overview](#High Level System Overview)</li>
+<li>[Rough Draft Specs](#Rough Draft Specs)</li>
+</ul>
+<h2 id="definitionsahrefdefinitionsiddefinitionsclassdeeplinka">Definitions <a href="#Definitions" id="Definitions" class="deep-link">#</a></h2>
+<ul>
+<li><em>Client</em> or <em>Device</em> includes IoT devices, servers, and anything in between.
+This term encompasses any device capable of running Docker and executing the
+<a href="https://github.com/P2PVPS/p2pvps-client">client software</a></li>
+<li><em>Server</em> is an internet connected computer capable of running the software in this repository.</li>
+<li><em>Device Owners</em> are the owners of the Client devices.</li>
+<li><em>Renters</em> are users who rent the Client device from the Device Owners.</li>
+</ul>
+<h3 id="test">test</h3>
+<h2 id="clientoverviewahrefclientoverviewidclientoverviewclassdeeplinka">Client Overview <a href="#Client Overview" id="Client Overview" class="deep-link">#</a></h2>
+<p>The purpose of the client side software is to create a virtual private server (<strong>VPS</strong>) environment similar to those hosted
+by cloud companies like Digital Ocean or AWS. This is achieved on an IoT device by running a Linux command line inside
+a Docker container. Small, indexpensive, distributed hardware like Raspberry Pi minicomputers now posses the
+computational power to host such an environment.</p>
+<p>This setup has the following advantages:</p>
+<ul>
+<li><p>By running the environment in a virtual system like Docker, the device can be easily reset to a known state
+when the <em>renter</em> is done using it.</p></li>
+<li><p>By using reverse SSH to connect to a central server, the <em>renters</em> can be provided with a command line interface to the device while
+by-passing network firewalls. However, this creates network risks that device <em>owners</em> need to be aware of.</p></li>
+<li><p>Renting out the computing power of the hardware allows hardware <em>owners</em> to profit from their hardware and internet connection, while promoting a decentralized internet.</p></li>
+<li><p>Creating distributed, semi-anonymouse VPS micro-servers, hosted in peoples homes, has interesting legal ramifications and moves the internet towards
+a more reliable, distributed, and censorless architecture.</p></li>
+</ul>
+<p>The client software is composed of the following high-level features. Each feature needs a manager, so if you are
+interested in contributing, <a href="http://p2pvps.org">please let us know</a>:</p>
+<ul>
+<li>Governor</li>
+<li>Docker container with SSH</li>
+<li>Persistant Storage</li>
+<li>Encryption</li>
+<li>Deployment Packages (pre-configured scripts for setting up apps like webservers, file sharing, etc.)</li>
+<li>Testing</li>
+</ul>
+<p>See more details in the <a href="client-specification.md">Client Specification</a>.</p>
+<h2 id="serveroverviewahrefserveroverviewidserveroverviewclassdeeplinka">Server Overview <a href="#Server Overview" id="Server Overview" class="deep-link">#</a></h2>
+<p>The primary purpose of the server software is to orchastrate the network of devices and facilitate financial
+transations via OpenBazaar.
+Its secondary purpose is to connect with other servers, in order to establish a peer-to-peer (P2P) marketplace,
+with no central point of failure. These goals are achieved by splitting the server into two software stacks:
+<em>The Marketplace</em> and the <em>The Server</em>.</p>
+<p><em>The Marketplace</em> is a Vue.js web application that allows renters and owners to manage devices and transactions.
+It is composed of the following high-level User Interfaces/Features:</p>
+<ul>
+<li>Owned Device Management</li>
+<li>Testing</li>
+</ul>
+<p>See more details in the <a href="marketplace-specification.md">Marketplace Specification</a>.</p>
+<p><em>The Server</em> is the collection of files necessary to create the website (content), the database models, and the REST APIs
+needed for the Client software and the Marketplace software to communicate and coordinate. It is composed of the following
+high level features:</p>
+<ul>
+<li>Database API</li>
+<li>Website and Content Management System (CMS)</li>
+<li>SSH Tunnel Server</li>
+<li>LocalTunnel HTTP/S Forwarding</li>
+<li>OpenBazaar Transactions</li>
+<li>Listing Manager</li>
+<li>Testing</li>
+</ul>
+<p>See more details in the <a href="server-specification.md">Server Specification</a>.</p>
+<h2 id="highlevelsystemoverviewahrefhighlevelsystemoverviewidhighlevelsystemoverviewclassdeeplinka">High Level System Overview <a href="#High Level System Overview" id="High Level System Overview" class="deep-link">#</a></h2>
+<p>The sections below give additional details on how the system-as-a-whole works. Lower level specifications will
+be captured in the respective specification document for <a href="client-specification.md">Client</a>,
+<a href="server-specification.md">Server</a>, and <a href="marketplace-specification.md">Marketplace</a>.</p>
+<h3 id="networkorchestration">Network Orchestration</h3>
+<p>A client device registers with a server by making a REST API call and passing a server-generated key (GUID).
+Upon recieving a valid registration call, the server opens new ports, generates login details, and returns this
+information to the client.
+The client then launches a Docker container with a minimal Linux environment. The container makes a
+reverse SSH connection to forward its local SSH port to the server's new port, tunneling through any firewalls, and creating
+a command line interface accessible to the renter.</p>
+<p>The Server operates a minimal SSH server running inside a Docker container and another <a href="https://github.com/localtunnel/server">LocalTunnel server</a>
+running inside it's own Docker container.
+This SSH shell allows connection to the client device via SSH.
+The LocalTunnel server also forwards port 80 (http) and port 443 (https) from the client device. A subdomain is created
+on the server allowing access to these three ports. This allows renters to connect to the command line on the
+client device and also
+serve web pages and web apps from a human-readable URL.</p>
+<h3 id="financialtransactions">Financial Transactions</h3>
+<p>Transactions between Owners and Renters will take place over the <a href="http://openbazaar.org/">OpenBazaar</a>
+(<strong>OB</strong>) network.
+This requires that the buyer and seller each have a local installation of OpenBazaar capable of
+sending a receiving cryptocurrency. Cryptocurrencies have the
+advantage of allowing server owners to create semi-anonymous markets. It also allows P2P VPS servers to
+connect Owners and Renters without having any liability with regard to finanical transactions.</p>
+<p>Owners will fill out a form to register their device, be given a key, and
+then install the software on the client hardware along with the key. Rental of devices will be billed by the hour.
+When a device is registered, its hardware (memory, CPU, hard-drive space) will be verified.
+Owners can then place the device for rent on the P2P VPS marketplace, or simply reserve it for personal use.
+The device owner can set the hourly rate they are willing to rent the device for on the marketplace.</p>
+<p>A renter agrees to the rental contract by purchase the contract on the OpenBazaar network for
+a fixed length of time.
+The device is then taken off the P2P VPS OpenBazaar store.
+A random username and password generated for the device will be emailed to the renter at that time.
+As long as the device is connect to the internet, the device will be dedicated for the renters use.
+Once the length of the contract expires, the client device is reset and placed back on the marketplace.
+In the future, a feature will be developed to allow renters to extend the length of their contract.
+If the client device goes offline and can not fulfill the terms of the contract, an OpenBazaar dispute
+is activated and a moderator can pro-rate and refund part of the transaction to the renter.</p>
+<p>This workflow diagram illustrates how transactions initiated and managed:
+<img src="images/workflow.jpg?raw=true" alt="Transaction Worflow" title="Transaction Worflow" /></p>
+<h3 id="federatedservers">Federated Servers</h3>
+<p>Server software will be able to establish connections with other servers at the desire of the server administrator.
+This API will allow P2P VPS servers to link to one another. The link will appear on their website as a designated
+place. A link to the servers OpenBazaar store will also appear on their OpenBazaar store page.
+By creating a federation of marketplaces, the overall network has no single point of failure.</p>
+<p><img src="images/federated-diagram.jpg?raw=true" alt="Federated network of servers" title="Federated network of servers" /></p>
+<h3 id="clientserverhandshaking">Client Server Handshaking</h3>
+<p>Below are a series of steps specifiying how the Server and Client (Raspberry Pi or other IoT device) will initiate a
+connection to the Server in order to allow global internet connections to the Client behind any arbitrary firewalls and network devices.</p>
+<ol>
+<li><p>The device Owner logs into their account on the Server to register the Client device. They recieve a hash the Client
+uses to identify itself to the Server.</p></li>
+<li><p>The Owner copies the hash into a .json file on the Client and starts the Client software.</p></li>
+<li><p>The Client software makes a REST API call to the Server. It passes in the hash and the Server responds with
+a computer-generated username, password, and a port number. The port number is used to establish an reverse SSH
+tunnel to the Client device. A subdomain is also set up on the server using <a href="https://github.com/localtunnel/server">LocalTunnel</a>
+to forward ports 80 (http) and 443 (https) from the Client device to the new subdomain on the Server.</p></li>
+<li><p>When a Renter rents the device, they are emailed the username and password for the device.</p></li>
+<li><p>When the rental contract ends, the ports and subdomains are released by the server.
+The Client software destroys the Docker container the Renter was using and wipes any peristant storage.
+The Client re-registers itself back into the marketplace by repeating the process from Step 3.</p></li>
+</ol>
+<p><em>Note:</em> It is not possible to make a reverse SSH call without giving the Client shell access to the Server. By restricting
+the connection to a minimal Ubuntu Docker image, the server can be better protected against malicious users.
+One area of improvement is to research a way of establishing an SSH server capable of doing
+reverse tunneling without giving command line access.</p>
+<h2 id="roughdraftspecsahrefroughdraftspecsidroughdraftspecsclassdeeplinka">Rough Draft Specs <a href="#Rough Draft Specs" id="Rough Draft Specs" class="deep-link">#</a></h2>
+<h3 id="rebooting">Rebooting:</h3>
+<ul>
+<li>In the flash-shell client, people need to be able to reboot the device without wiping the flash storage or re-registering the device.</li>
+<li>On reboot, the client could check the expiration date on the server and decide whether to re-register or not.</li>
+</ul>
+<h3 id="refundsandproratingofcontracts">Refunds and pro-rating of contracts</h3>
+<ul>
+<li>If the Listing Manager triggers an expiration date reset, it could also trigger a refund in OpenBazaar for the current contract. The trick is calculating the pro-rated fee. Would this also require all sales to use multi-sig contracts and a moderator?</li>
+<li>This scheme would also require the server to hold payment until the terms of the contract are complete. Then it could distribute the money to the Owner.</li>
+</ul>
+<h3 id="extensionstotheexpirationdate">Extensions to the expiration date</h3>
+<ul>
+<li>This would best be handled within the Vue application. Renters could log in and request an extension.</li>
+<li>This request would generate an OB contract that they would then purchase.</li>
+</ul>
+<h3 id="logging">Logging</h3>
+<ul>
+<li>The NPM package <code>winston</code> needs to be implemented into all aspects of the server and client. Right now
+there is no logging and it will be needed to scale up tests and usage of the software.</li>
+</ul>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
