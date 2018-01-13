@@ -55,6 +55,7 @@ AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
 <li><a href="#Definitions">Definitions</a></li>
 <li><a href="#Client-Overview">Client-Overview</a></li>
 <li><a href="#Server-Overview">Server-Overview</a></li>
+<li><a href="#Server-Deployment-Overview">Server-Deployment-Overview</a></li>
 <li><a href="#High-Level-System-Overview">High-Level-System-Overview</a></li>
 <li><a href="#Rough-Draft-Specs">Rough-Draft-Specs</a></li>
 </ul>
@@ -98,30 +99,41 @@ interested in contributing, <a href="http://p2pvps.org">please let us know</a>:<
 </ul>
 <p>See more details in the Client section.</p>
 <h2 id="serveroverviewahrefserveroverviewidserveroverviewclassdeeplinka">Server-Overview <a href="#Server-Overview" id="Server-Overview" class="deep-link">#</a></h2>
-<p>The primary purpose of the server software is to orchastrate the network of devices
+<p>The primary purpose of the server software is to orchestrate the network of devices
 and facilitate financial transactions via OpenBazaar.
 Its secondary purpose is to connect with other servers, in order to establish a
-peer-to-peer (P2P) marketplace, with no central point of failure. These goals are achieved by splitting the server into two software stacks: <em>The Marketplace</em> and the <em>The Server</em>.</p>
-<p><em>The Marketplace</em> is a Vue.js web application that allows renters and owners to manage devices and transactions.
-It is composed of the following high-level User Interfaces/Features:</p>
+peer-to-peer (P2P) marketplace, with no central point of failure. These goals are achieved by splitting the server into two software stacks: The <em>front end</em> and the <em>back end</em>.</p>
+<p><strong>The front end</strong> of the server has to do will all the activity that takes place
+in a web browser. It's primarily concerned with the Vue.js applications that allow
+renters and owners to manage devices. It is composed of the following high-level
+features:</p>
 <ul>
-<li>Owned Device Management</li>
-<li>Testing</li>
+<li>Rental Search - searching and filtering rental devices.</li>
+<li>Device Management Dashboard - allowing device owners to manage their devices on the network.</li>
 </ul>
-<p>See more details in the <a href="marketplace-specification.md">Marketplace Specification</a>.</p>
-<p><em>The Server</em> is the collection of files necessary to create the website (content), the database models, and the REST APIs
-needed for the Client software and the Marketplace software to communicate and coordinate. It is composed of the following
-high level features:</p>
+<p><strong>The back end</strong> of the server is primarily concerned with the database and REST APIs
+used to coordinate the different pieces of software in the P2P VPS suite.
+It is composed of the following high level features:</p>
 <ul>
 <li>Database API</li>
 <li>Website and Content Management System (CMS)</li>
-<li>SSH Tunnel Server</li>
-<li>LocalTunnel HTTP/S Forwarding</li>
-<li>OpenBazaar Transactions</li>
-<li>Listing Manager</li>
-<li>Testing</li>
+<li>Port Control</li>
 </ul>
-<p>See more details in the <a href="server-specification.md">Server Specification</a>.</p>
+<h2 id="serverdeploymentoverviewahrefserverdeploymentoverviewidserverdeploymentoverviewclassdeeplinka">Server-Deployment-Overview <a href="#Server-Deployment-Overview" id="Server-Deployment-Overview" class="deep-link">#</a></h2>
+<p>The Server Deployment repository is primarily concerned with helping people start up
+their own P2P VPS marketplace by easily deploying the software onto a Linux cloud
+server. This is accomplished by modularizing the major pieces of software into Docker
+containers and then orchestrating their communication with Docker Compose. It is
+composed of the following high level features:</p>
+<ul>
+<li>ConnextCMS</li>
+<li>MongoDB</li>
+<li>OpenBazaar</li>
+<li>Listing Manager</li>
+<li>SSH Server</li>
+<li>LocalTunnel</li>
+<li>Nginx Configuration</li>
+</ul>
 <h2 id="highlevelsystemoverviewahrefhighlevelsystemoverviewidhighlevelsystemoverviewclassdeeplinka">High-Level-System-Overview <a href="#High-Level-System-Overview" id="High-Level-System-Overview" class="deep-link">#</a></h2>
 <p>The sections below give additional details on how the system-as-a-whole works. Lower level specifications will
 be captured in the respective specification document for <a href="client-specification.md">Client</a>,
