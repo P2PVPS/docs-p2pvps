@@ -17,8 +17,8 @@
     <li><a href="#toc">TOC</a></li>
 </ul>
 <h1 id="overview">Overview</h1>
-<p>This document contains the specifications for the Client software. The Client software is defined by the following
-high-level features:</p>
+<p>This document contains the specifications for the Client software. The Client
+software is defined by the following high-level features:</p>
 <ul>
 <li>Governor</li>
 <li>Docker container with SSH</li>
@@ -77,6 +77,12 @@ SSH connection with the server.</p></li>
 <li><p>Renters are sandboxed inside the Docker container. They still have access to the
 devices' computational power and resources, but their control of the device is limited.
 The environment is easy to destroy and recreate.</p></li>
+<li><p>Because there is a node application running both inside and outside the Docker
+container, and because they can both communicate with the server, secure exchanges
+can take place. This means things like encryption keys and passwords can be passed
+without every being written to disk. This allows various forms of on-the-fly encryption,
+which is important as anyone with access to the physical device could access the
+inside of the Docker container.</p></li>
 </ul>
 <h2 id="persistentstorageahrefpersistentstorageidpersistentstorageclassdeeplinka">Persistent-Storage <a href="#Persistent-Storage" id="Persistent-Storage" class="deep-link">#</a></h2>
 <p>Persistent storage can take many forms, but a USB flash drive will be encouraged,
