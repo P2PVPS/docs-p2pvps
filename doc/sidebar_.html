@@ -109,6 +109,38 @@ like to help with this effort.</span>
             <h3 class="toc-mod-title"><a href="4.Server_doc.html">4.Server</a></h3>
             <div class="toc-list">
                 
+                <a class="toc-item" href="4.Server_doc.html#Database-API">
+                    <h4>Database-API</h4>
+                    <span class="desc">Each device registered into the marketplace gets two database models, called <code>devicePublicModel</code> and <code>devicePrivateModel</code>. Most data about a device is assumed to be public. Specifically, private things like the SSH port, username, password, and
+user account of the renter is kept in the private DB model. Security checks are done to ensure only admins,
+device owners, or active device renters can access the private model.</span>
+                </a>
+                
+                <a class="toc-item" href="4.Server_doc.html#Website and Content Management System ">
+                    <h4>Website and Content Management System (CMS)</h4>
+                    <span class="desc">Content will be managed with ConnextCMS, an extension for KeystoneJS. This covers the scope of blog posts, the home page, about page, and other web pages.
+<em>The Marketplace</em> will be a single-page app (SPA) using Vue.js, which is outside the scope of this document.</span>
+                </a>
+                
+                <a class="toc-item" href="4.Server_doc.html#OpenBazaar Transactions">
+                    <h4>OpenBazaar Transactions</h4>
+                    <span class="desc">OpenBazaar (<strong>OB</strong>) will be leveraged to handle the transactions between Owners and Renters. When an Owner submits their device to the P2P VPS Marketplace, the Server will be responsible for generating
+a contract on the OpenBazaar network. Renters then purchase the contract using their own OpenBazaar software. At that point, the login and password
+for the device is emailed to them.</span>
+                </a>
+                
+                <a class="toc-item" href="4.Server_doc.html#Port Control">
+                    <h4>Port Control</h4>
+                    <span class="desc">This is a Database API that is used to manage a list of available SSH ports for making reverse SSH tunnel connections between the Server and Client devices.</span>
+                </a>
+                
+                <a class="toc-item" href="4.Server_doc.html#Testing">
+                    <h4>Testing</h4>
+                    <span class="desc">Testing of server code will use the same test-suite as the Marketplace. Namely the test configuration set up by the original vue-template/webpack repository.
+Namely, Mocha will be used for unit tests and Karma will be used for end-to-end testing. We badly need
+a contributor to help us setup and maintain a suite of testing scripts and set up Continuous Integration testing.</span>
+                </a>
+                
             </div>
         
             <h3 class="toc-mod-title"><a href="5.Server-Deployment_doc.html">5.Server-Deployment</a></h3>
