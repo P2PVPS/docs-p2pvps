@@ -19,7 +19,7 @@
 <h1 id="overview">Overview</h1>
 <p>This document contains a high-level technical overview of the P2P VPS suit of
 software. The full suit consists of a set of server, client, and server deployment software.</p>
-<p><em>The client software</em> has two targets: Raspberry Pi minicomputers and VirtualBox
+<p><strong>The client software</strong> has two targets: Raspberry Pi minicomputers and VirtualBox
 VMs running Ubuntu Linux. The client software can be adapted to operate on
 any device that is capable of running Docker. The focus of the client software is to:</p>
 <ul>
@@ -29,7 +29,7 @@ any device that is capable of running Docker. The focus of the client software i
 to the server so the device can serve webpages, web apps, and distributed apps
 (dapps), accessible from the general internet.</li>
 </ul>
-<p><em>The server software</em> is a Vue.js-based theme for <a href="http://connextcms.com">ConnextCMS</a>.
+<p><strong>The server software</strong> is a Vue.js-based theme for <a href="http://connextcms.com">ConnextCMS</a>.
 It gives <em>Device Owners</em> a dashboard for managing the devices they rent out on the marketplace.
 It also gives prospective <em>Renters</em> an easy way to filter VPSs by benchmarks, in order to find the
 best price for their desired use. It's primary functions are:</p>
@@ -39,7 +39,7 @@ best price for their desired use. It's primary functions are:</p>
 <li>Create listing on the OpenBazaar network to allow Client devices to be rented.</li>
 <li>Establish connection with other servers.</li>
 </ul>
-<p><em>The server deployment software</em> is a collection of Dockerized packages, all orchestrated
+<p><strong>The server deployment software</strong> is a collection of Dockerized packages, all orchestrated
 with Docker Compose. This software is targeted for cloud VPS hosts like Digital Ocean, Vultr,
 AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
 <ul>
@@ -50,15 +50,13 @@ AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
 <li>An SSH server for managing reverse SSH tunnel connections.</li>
 <li>A LocalTunnel server for managing the networking of HTTP (port 80) and HTTPS (port 443) connections.</li>
 </ul>
-<p>A simple diagram of a P2P VPS Marketplace:</p>
-<p><img src="images/simple-diagram.jpg?raw=true" alt="Simple server client diagram" title="Simple server client diagram" /></p>
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 <ul>
 <li><a href="#Definitions">Definitions</a></li>
-<li>[Client Overview](#Client Overview)</li>
-<li>[Server Overview](#Server Overview)</li>
-<li>[High Level System Overview](#High Level System Overview)</li>
-<li>[Rough Draft Specs](#Rough Draft Specs)</li>
+<li><a href="#Client-Overview">Client-Overview</a></li>
+<li><a href="#Server-Overview">Server-Overview</a></li>
+<li><a href="#High-Level-System-Overview">High-Level-System-Overview</a></li>
+<li><a href="#Rough-Draft-Specs">Rough-Draft-Specs</a></li>
 </ul>
 <h2 id="definitionsahrefdefinitionsiddefinitionsclassdeeplinka">Definitions <a href="#Definitions" id="Definitions" class="deep-link">#</a></h2>
 <ul>
@@ -69,8 +67,9 @@ This term encompasses any device capable of running Docker and executing the
 <li><em>Device Owners</em> are the owners of the Client devices.</li>
 <li><em>Renters</em> are users who rent the Client device from the Device Owners.</li>
 </ul>
-<h3 id="test">test</h3>
-<h2 id="clientoverviewahrefclientoverviewidclientoverviewclassdeeplinka">Client Overview <a href="#Client Overview" id="Client Overview" class="deep-link">#</a></h2>
+<p>A simple diagram of a P2P VPS Marketplace:</p>
+<p><img src="images/simple-diagram.jpg?raw=true" alt="Simple server client diagram" title="Simple server client diagram" /></p>
+<h2 id="clientoverviewahrefclientoverviewidclientoverviewclassdeeplinka">Client-Overview <a href="#Client-Overview" id="Client-Overview" class="deep-link">#</a></h2>
 <p>The purpose of the client side software is to create a virtual private server (<strong>VPS</strong>) environment similar to those hosted
 by cloud companies like Digital Ocean or AWS. This is achieved on an IoT device by running a Linux command line inside
 a Docker container. Small, indexpensive, distributed hardware like Raspberry Pi minicomputers now posses the
@@ -96,12 +95,11 @@ interested in contributing, <a href="http://p2pvps.org">please let us know</a>:<
 <li>Testing</li>
 </ul>
 <p>See more details in the <a href="client-specification.md">Client Specification</a>.</p>
-<h2 id="serveroverviewahrefserveroverviewidserveroverviewclassdeeplinka">Server Overview <a href="#Server Overview" id="Server Overview" class="deep-link">#</a></h2>
-<p>The primary purpose of the server software is to orchastrate the network of devices and facilitate financial
-transations via OpenBazaar.
-Its secondary purpose is to connect with other servers, in order to establish a peer-to-peer (P2P) marketplace,
-with no central point of failure. These goals are achieved by splitting the server into two software stacks:
-<em>The Marketplace</em> and the <em>The Server</em>.</p>
+<h2 id="serveroverviewahrefserveroverviewidserveroverviewclassdeeplinka">Server-Overview <a href="#Server-Overview" id="Server-Overview" class="deep-link">#</a></h2>
+<p>The primary purpose of the server software is to orchastrate the network of devices
+and facilitate financial transactions via OpenBazaar.
+Its secondary purpose is to connect with other servers, in order to establish a
+peer-to-peer (P2P) marketplace, with no central point of failure. These goals are achieved by splitting the server into two software stacks: <em>The Marketplace</em> and the <em>The Server</em>.</p>
 <p><em>The Marketplace</em> is a Vue.js web application that allows renters and owners to manage devices and transactions.
 It is composed of the following high-level User Interfaces/Features:</p>
 <ul>
@@ -122,13 +120,13 @@ high level features:</p>
 <li>Testing</li>
 </ul>
 <p>See more details in the <a href="server-specification.md">Server Specification</a>.</p>
-<h2 id="highlevelsystemoverviewahrefhighlevelsystemoverviewidhighlevelsystemoverviewclassdeeplinka">High Level System Overview <a href="#High Level System Overview" id="High Level System Overview" class="deep-link">#</a></h2>
+<h2 id="highlevelsystemoverviewahrefhighlevelsystemoverviewidhighlevelsystemoverviewclassdeeplinka">High-Level-System-Overview <a href="#High-Level-System-Overview" id="High-Level-System-Overview" class="deep-link">#</a></h2>
 <p>The sections below give additional details on how the system-as-a-whole works. Lower level specifications will
 be captured in the respective specification document for <a href="client-specification.md">Client</a>,
 <a href="server-specification.md">Server</a>, and <a href="marketplace-specification.md">Marketplace</a>.</p>
 <h3 id="networkorchestration">Network Orchestration</h3>
 <p>A client device registers with a server by making a REST API call and passing a server-generated key (GUID).
-Upon recieving a valid registration call, the server opens new ports, generates login details, and returns this
+Upon receiving a valid registration call, the server opens new ports, generates login details, and returns this
 information to the client.
 The client then launches a Docker container with a minimal Linux environment. The container makes a
 reverse SSH connection to forward its local SSH port to the server's new port, tunneling through any firewalls, and creating
@@ -189,7 +187,7 @@ The Client re-registers itself back into the marketplace by repeating the proces
 the connection to a minimal Ubuntu Docker image, the server can be better protected against malicious users.
 One area of improvement is to research a way of establishing an SSH server capable of doing
 reverse tunneling without giving command line access.</p>
-<h2 id="roughdraftspecsahrefroughdraftspecsidroughdraftspecsclassdeeplinka">Rough Draft Specs <a href="#Rough Draft Specs" id="Rough Draft Specs" class="deep-link">#</a></h2>
+<h2 id="roughdraftspecsahrefroughdraftspecsidroughdraftspecsclassdeeplinka">Rough-Draft-Specs <a href="#Rough-Draft-Specs" id="Rough-Draft-Specs" class="deep-link">#</a></h2>
 <h3 id="rebooting">Rebooting:</h3>
 <ul>
 <li>In the flash-shell client, people need to be able to reboot the device without wiping the flash storage or re-registering the device.</li>
