@@ -18,7 +18,11 @@
 </ul>
 <h1 id="overview">Overview</h1>
 <p>This document contains the specifications for the Client software. The Client
-software is defined by the following high-level features:</p>
+software is targeted to run on small IoT devices like the Raspberry Pi, and also
+desktop computers running a Ubuntu Linux VM in VirtualBox. In this way, the Client
+software can turn any computer capable of running Docker into a VPS, capable of
+being rented out on the P2P VPS marketplace.</p>
+<p>Client software is defined by the following high-level features:</p>
 <ul>
 <li>Governor</li>
 <li>Docker container with SSH</li>
@@ -80,7 +84,7 @@ The environment is easy to destroy and recreate.</p></li>
 <li><p>Because there is a node application running both inside and outside the Docker
 container, and because they can both communicate with the server, secure exchanges
 can take place. This means things like encryption keys and passwords can be passed
-without every being written to disk. This allows various forms of on-the-fly encryption,
+without ever being written to disk. This allows various forms of on-the-fly encryption,
 which is important as anyone with access to the physical device could access the
 inside of the Docker container.</p></li>
 </ul>
