@@ -1,0 +1,2 @@
+#!/bin/bash
+cp -r doc ~/docker-connextcms-p2pvps/public
