@@ -8,7 +8,7 @@ mdoc.run({
 
     // === required settings === //
 
-    inputDir : 'content',
+    inputDir : 'docs',
     outputDir : 'doc',
 
 
