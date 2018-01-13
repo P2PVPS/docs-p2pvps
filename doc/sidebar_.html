@@ -109,36 +109,49 @@ like to help with this effort.</span>
             <h3 class="toc-mod-title"><a href="4.Server_doc.html">4.Server</a></h3>
             <div class="toc-list">
                 
+                <a class="toc-item" href="4.Server_doc.html#Rental-Search-UI">
+                    <h4>Rental-Search-UI</h4>
+                    <span class="desc">At present, the rental search user interface (<strong>UI</strong>) has not been designed.</span>
+                </a>
+                
+                <a class="toc-item" href="4.Server_doc.html#Device-Management-Dashboard-UI">
+                    <h4>Device-Management-Dashboard-UI</h4>
+                    <span class="desc">An early prototype of the Device Management Dashboard can be accessed at p2pvps.net. The dashboard allows device owners to manage
+the devices subscribed to the P2P VPS server. It's primary features are:</span>
+                </a>
+                
                 <a class="toc-item" href="4.Server_doc.html#Database-API">
                     <h4>Database-API</h4>
-                    <span class="desc">Each device registered into the marketplace gets two database models, called <code>devicePublicModel</code> and <code>devicePrivateModel</code>. Most data about a device is assumed to be public. Specifically, private things like the SSH port, username, password, and
-user account of the renter is kept in the private DB model. Security checks are done to ensure only admins,
+                    <span class="desc">Each device registered into the marketplace gets two database models, called <code>devicePublicModel</code> and <code>devicePrivateModel</code>.
+Most data about a device is assumed to be public. Specifically, private things
+like the SSH port, username, password, and user account of the renter is kept
+in the private DB model. Security checks are done to ensure only admins,
 device owners, or active device renters can access the private model.</span>
                 </a>
                 
-                <a class="toc-item" href="4.Server_doc.html#Website and Content Management System ">
-                    <h4>Website and Content Management System (CMS)</h4>
-                    <span class="desc">Content will be managed with ConnextCMS, an extension for KeystoneJS. This covers the scope of blog posts, the home page, about page, and other web pages.
-<em>The Marketplace</em> will be a single-page app (SPA) using Vue.js, which is outside the scope of this document.</span>
+                <a class="toc-item" href="4.Server_doc.html#Content-Management-System-">
+                    <h4>Content-Management-System-(CMS)</h4>
+                    <span class="desc">Content will be managed with ConnextCMS, an extension for KeystoneJS.
+This covers the scope of blog posts, the home page, about page, and other web pages.</span>
                 </a>
                 
-                <a class="toc-item" href="4.Server_doc.html#OpenBazaar Transactions">
-                    <h4>OpenBazaar Transactions</h4>
-                    <span class="desc">OpenBazaar (<strong>OB</strong>) will be leveraged to handle the transactions between Owners and Renters. When an Owner submits their device to the P2P VPS Marketplace, the Server will be responsible for generating
-a contract on the OpenBazaar network. Renters then purchase the contract using their own OpenBazaar software. At that point, the login and password
-for the device is emailed to them.</span>
+                <a class="toc-item" href="4.Server_doc.html#OpenBazaar-Transactions">
+                    <h4>OpenBazaar-Transactions</h4>
+                    <span class="desc">OpenBazaar (<strong>OB</strong>) will be leveraged to handle the transactions between Owners and Renters. When an Owner submits their device to
+the P2P VPS Marketplace, the Server will be responsible for generating a contract
+on the OpenBazaar network. Renters then purchase the contract using their own
+OpenBazaar application. Login and password for the rented device is passed to them
+through the 'Fulfilled' stage of the ordering process.</span>
                 </a>
                 
-                <a class="toc-item" href="4.Server_doc.html#Port Control">
-                    <h4>Port Control</h4>
+                <a class="toc-item" href="4.Server_doc.html#Port-Control">
+                    <h4>Port-Control</h4>
                     <span class="desc">This is a Database API that is used to manage a list of available SSH ports for making reverse SSH tunnel connections between the Server and Client devices.</span>
                 </a>
                 
                 <a class="toc-item" href="4.Server_doc.html#Testing">
                     <h4>Testing</h4>
-                    <span class="desc">Testing of server code will use the same test-suite as the Marketplace. Namely the test configuration set up by the original vue-template/webpack repository.
-Namely, Mocha will be used for unit tests and Karma will be used for end-to-end testing. We badly need
-a contributor to help us setup and maintain a suite of testing scripts and set up Continuous Integration testing.</span>
+                    <span class="desc">Testing of the server code will be different from the standpoint <em>front end</em> and <em>back end</em>.</span>
                 </a>
                 
             </div>
@@ -146,124 +159,61 @@ a contributor to help us setup and maintain a suite of testing scripts and set u
             <h3 class="toc-mod-title"><a href="5.Server-Deployment_doc.html">5.Server-Deployment</a></h3>
             <div class="toc-list">
                 
-            </div>
-        
-            <h3 class="toc-mod-title"><a href="array_doc.html">array</a></h3>
-            <div class="toc-list">
-                
-                <a class="toc-item" href="array_doc.html#compact">
-                    <h4>compact(arr):Array</h4>
-                    <span class="desc">Returns a new Array without any <code>null</code> or <code>undefined</code> values. Note that it will keep empty strings and other falsy values (simillar to Ruby Array#compact).</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#ConnextCMS">
+                    <h4>ConnextCMS</h4>
+                    <span class="desc">This is where information will go about this Docker container.</span>
                 </a>
                 
-                <a class="toc-item" href="array_doc.html#contains">
-                    <h4>contains(arr, value):Boolean</h4>
-                    <span class="desc">Checks if Array contains value. Alias to <code>indexOf(arr, val) !== -1</code>.</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#MongoDB">
+                    <h4>MongoDB</h4>
+                    <span class="desc">This is where information will go about this Docker container.</span>
                 </a>
                 
-                <a class="toc-item" href="array_doc.html#every">
-                    <h4>every(arr, callback, [thisObj]):Array</h4>
-                    <span class="desc">Crossbrowser ES5 <code>Array.every()</code>.</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#Listing-Manager">
+                    <h4>Listing-Manager</h4>
+                    <span class="desc">This is where information will go about this Docker container.</span>
                 </a>
                 
-                <a class="toc-item" href="array_doc.html#filter">
-                    <h4>filter(arr, callback, [thisObj]):Array</h4>
-                    <span class="desc">Crossbrowser ES5 <code>Array.filter()</code>.</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#OpenBazaar">
+                    <h4>OpenBazaar</h4>
+                    <span class="desc">This is where information will go about this Docker container.</span>
                 </a>
                 
-                <a class="toc-item" href="array_doc.html#forEach">
-                    <h4>forEach(arr, callback, [thisObj]):void</h4>
-                    <span class="desc">Crossbrowser ES5 <code>Array.forEach()</code>.</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#SSH-Server">
+                    <h4>SSH-Server</h4>
+                    <span class="desc">This is where information will go about this Docker container.</span>
                 </a>
                 
-                <a class="toc-item" href="array_doc.html#indexOf">
-                    <h4>indexOf(arr, item, [fromIndex]):Number</h4>
-                    <span class="desc">Crossbrowser ES5 <code>Array.indexOf()</code>.</span>
+                <a class="toc-item" href="5.Server-Deployment_doc.html#LocalTunnel">
+                    <h4>LocalTunnel</h4>
+                    <span class="desc">This is where information will go about this Docker container. </span>
                 </a>
                 
             </div>
         
-            <h3 class="toc-mod-title"><a href="math_doc.html">math</a></h3>
+            <h3 class="toc-mod-title"><a href="x.Marketplace_doc.html">x.Marketplace</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="math_doc.html#clamp">
-                    <h4>clamp(val, min, max):Number</h4>
-                    <span class="desc">Clamps value inside range.</span>
+                <a class="toc-item" href="x.Marketplace_doc.html#Owned Device Management">
+                    <h4>Owned Device Management</h4>
+                    <span class="desc"><img src="images/owned-devices-mockup.JPG?raw=true" alt="Owned Devices" title="Owned Devices Mock Up" /></span>
                 </a>
                 
-                <a class="toc-item" href="math_doc.html#countSteps">
-                    <h4>countSteps(val, step, [overflow]):Number</h4>
-                    <span class="desc">Count number of full steps.</span>
+                <a class="toc-item" href="x.Marketplace_doc.html#Rented Device Management">
+                    <h4>Rented Device Management</h4>
+                    <span class="desc"><img src="images/rental-mockup.JPG?raw=true" alt="Rented Devices" title="Rented Devices Mock Up" /></span>
                 </a>
                 
-                <a class="toc-item" href="math_doc.html#inRange">
-                    <h4>inRange(val, min, max, [threshold]):Boolean</h4>
-                    <span class="desc">Checks if value is inside the range.</span>
+                <a class="toc-item" href="x.Marketplace_doc.html#Marketplace">
+                    <h4>Marketplace</h4>
+                    <span class="desc"><img src="images/marketplace-mockup.JPG?raw=true" alt="Marketplace Mockup" title="Marketplace Mock Up" /></span>
                 </a>
                 
-                <a class="toc-item" href="math_doc.html#isNear">
-                    <h4>isNear(val, target, threshold):Boolean</h4>
-                    <span class="desc">Check if value is close to target.</span>
-                </a>
-                
-                <a class="toc-item" href="math_doc.html#lerp">
-                    <h4>lerp(ratio, start, end):Number</h4>
-                    <span class="desc">Linear interpolation.</span>
-                </a>
-                
-                <a class="toc-item" href="math_doc.html#loop">
-                    <h4>loop(val, min, max):Number</h4>
-                    <span class="desc">Loops value inside range. Will return <code>min</code> if <code>val &gt; max</code> and <code>max</code> if <code>val &lt; min</code>, otherwise it returns <code>val</code>.</span>
-                </a>
-                
-                <a class="toc-item" href="math_doc.html#map">
-                    <h4>map(val, min1, max1, min2, max2):Number</h4>
-                    <span class="desc">Maps a number from one scale to another.</span>
-                </a>
-                
-                <a class="toc-item" href="math_doc.html#norm">
-                    <h4>norm(val, min, max):Number</h4>
-                    <span class="desc">Gets normalized ratio of value inside range.</span>
-                </a>
-                
-                <a class="toc-item" href="math_doc.html#snap">
-                    <h4>snap(val, step):Number</h4>
-                    <span class="desc">Snap value to full steps.</span>
-                </a>
-                
-            </div>
-        
-            <h3 class="toc-mod-title"><a href="number_doc.html">number</a></h3>
-            <div class="toc-list">
-                
-                <a class="toc-item" href="number_doc.html#enforcePrecision">
-                    <h4>enforcePrecision(val, nDecimalDigits):Number</h4>
-                    <span class="desc">Enforce a specific amount of decimal digits and also fix floating point rounding issues.</span>
-                </a>
-                
-                <a class="toc-item" href="number_doc.html#MAX_INT">
-                    <h4>MAX_INT:Number</h4>
-                    <span class="desc">Maximum 32-bit signed integer value. <code>Math.pow(2, 31) - 1</code></span>
-                </a>
-                
-                <a class="toc-item" href="number_doc.html#MAX_UINT">
-                    <h4>MAX_UINT:Number</h4>
-                    <span class="desc">Maximum 32-bit unsigned integer value. <code>Math.pow(2, 32) - 1</code></span>
-                </a>
-                
-                <a class="toc-item" href="number_doc.html#MIN_INT">
-                    <h4>MIN_INT:Number</h4>
-                    <span class="desc">Minimum 32-bit signed integer value. <code>Math.pow(2, 31) * -1</code>.</span>
-                </a>
-                
-                <a class="toc-item" href="number_doc.html#pad">
-                    <h4>pad(n, minLength):String</h4>
-                    <span class="desc">Add padding zeros if <code>n.length</code> &lt; <code>minLength</code>.</span>
-                </a>
-                
-                <a class="toc-item" href="number_doc.html#sign">
-                    <h4>sign(val):Number</h4>
-                    <span class="desc">Returns <code>-1</code> if value is negative and <code>1</code> if value is positive. Useful for multiplications.</span>
+                <a class="toc-item" href="x.Marketplace_doc.html#Testing">
+                    <h4>Testing</h4>
+                    <span class="desc">Testing of server code will use the same test-suite provided by the vue-template/webpack repository, which this project was generated
+from. Namely, Mocha will be used for unit tests and Karma will be used for end-to-end testing. We badly need
+a contributor to help us setup and maintain a suite of testing scripts and set up Continuous Integration testing.</span>
                 </a>
                 
             </div>

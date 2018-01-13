@@ -16,9 +16,42 @@
     <li><a href="index.html">Index</a></li>
     <li><a href="#toc">TOC</a></li>
 </ul>
-<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 <h1 id="serverdeployment">Server Deployment</h1>
-<p>This will contain the specifications for the server deployment repo.</p>
+<p>The server deployment software is a collection of Dockerized packages, all orchestrated
+with Docker Compose. This software is targeted for cloud VPS hosts like Digital Ocean, Vultr,
+AWS EC2, etc running Ubuntu Linux. The purpose of using Docker is to make deployment
+of P2P VPS servers as easy as possible. With a handful of commands, new servers
+join the market quickly and easily.</p>
+<p>Below is a diagram of the Server Deployment software stack. Internet traffic is
+first routed by <a href="https://nginx.org/en/docs/">Nginx</a> to the appropriate Docker container.
+Nginx also handles SSL encryption using a <a href="https://letsencrypt.org/">Let's Encrypt</a>
+certificate. All of the Docker containers ride on top of the underlying Linux
+host operating system.</p>
+<p>The various Docker containers are networked and orchestrated using a Docker Compose
+<code>.yml</code> file. Each container writes to it's own debug logs which are stored in the
+hidden <code>.p2pvps</code> folder in the users home directory.</p>
+<p><img src="images/server-stack-600px.jpg" alt="Server Deployment Stack" /></p>
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+<ul>
+<li><a href="#ConnextCMS">ConnextCMS</a></li>
+<li><a href="#MongoDB">MongoDB</a></li>
+<li><a href="#Listing-Manager">Listing-Manager</a></li>
+<li><a href="#OpenBazaar">OpenBazaar</a></li>
+<li><a href="#SSH-Server">SSH-Server</a></li>
+<li><a href="#LocalTunnel">LocalTunnel</a></li>
+</ul>
+<h2 id="connextcmsahrefconnextcmsidconnextcmsclassdeeplinka">ConnextCMS <a href="#ConnextCMS" id="ConnextCMS" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
+<h2 id="mongodbahrefmongodbidmongodbclassdeeplinka">MongoDB <a href="#MongoDB" id="MongoDB" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
+<h2 id="listingmanagerahreflistingmanageridlistingmanagerclassdeeplinka">Listing-Manager <a href="#Listing-Manager" id="Listing-Manager" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
+<h2 id="openbazaarahrefopenbazaaridopenbazaarclassdeeplinka">OpenBazaar <a href="#OpenBazaar" id="OpenBazaar" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
+<h2 id="sshserverahrefsshserveridsshserverclassdeeplinka">SSH-Server <a href="#SSH-Server" id="SSH-Server" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
+<h2 id="localtunnelahreflocaltunnelidlocaltunnelclassdeeplinka">LocalTunnel <a href="#LocalTunnel" id="LocalTunnel" class="deep-link">#</a></h2>
+<p>This is where information will go about this Docker container.</p>
             </div>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>

@@ -67,6 +67,17 @@ in the OpenBazaar application.</p>
 persistent data wiped.
 A new Docker container with new login credentials is generated for the next renter,
 and a new listing is added to the P2P VPS OpenBazaar store.</p>
+<p>Below is an illustration of the Client software stack:
+<img src="images/client-software-stack-600px.jpg" alt="Client Software Stack" /></p>
+<ul>
+<li><p><code>The p2p-vps-client.js</code> governor application communicates with the Server and
+controlls the Docker container.</p></li>
+<li><p><code>client-connect.js</code> runs inside the Docker container and establishes the reverse
+SSH connection with the server.</p></li>
+<li><p>Renters are sandboxed inside the Docker container. They still have access to the
+devices' computational power and resources, but their control of the device is limited.
+The environment is easy to destroy and recreate.</p></li>
+</ul>
 <h2 id="persistentstorageahrefpersistentstorageidpersistentstorageclassdeeplinka">Persistent-Storage <a href="#Persistent-Storage" id="Persistent-Storage" class="deep-link">#</a></h2>
 <p>Persistent storage can take many forms, but a USB flash drive will be encouraged,
 as SD cards have shown reliability issues. Most IoT devices, like the Raspberry
