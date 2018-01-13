@@ -70,10 +70,11 @@ This term encompasses any device capable of running Docker and executing the
 <p>A simple diagram of a P2P VPS Marketplace:</p>
 <p><img src="images/simple-diagram.jpg?raw=true" alt="Simple server client diagram" title="Simple server client diagram" /></p>
 <h2 id="clientoverviewahrefclientoverviewidclientoverviewclassdeeplinka">Client-Overview <a href="#Client-Overview" id="Client-Overview" class="deep-link">#</a></h2>
-<p>The purpose of the client side software is to create a virtual private server (<strong>VPS</strong>) environment similar to those hosted
-by cloud companies like Digital Ocean or AWS. This is achieved on an IoT device by running a Linux command line inside
-a Docker container. Small, indexpensive, distributed hardware like Raspberry Pi minicomputers now posses the
-computational power to host such an environment.</p>
+<p>The purpose of the client side software is to create a virtual private server
+(<strong>VPS</strong>) environment similar to those hosted by cloud companies like Digital
+Ocean or AWS. This is achieved on an IoT device by running a Linux shell inside
+a Docker container. Small, inexpensive, distributed hardware like Raspberry Pi
+minicomputers now posses the computational power to host such an environment.</p>
 <p>This setup has the following advantages:</p>
 <ul>
 <li><p>By running the environment in a virtual system like Docker, the device can be easily reset to a known state
@@ -81,20 +82,21 @@ when the <em>renter</em> is done using it.</p></li>
 <li><p>By using reverse SSH to connect to a central server, the <em>renters</em> can be provided with a command line interface to the device while
 by-passing network firewalls. However, this creates network risks that device <em>owners</em> need to be aware of.</p></li>
 <li><p>Renting out the computing power of the hardware allows hardware <em>owners</em> to profit from their hardware and internet connection, while promoting a decentralized internet.</p></li>
-<li><p>Creating distributed, semi-anonymouse VPS micro-servers, hosted in peoples homes, has interesting legal ramifications and moves the internet towards
-a more reliable, distributed, and censorless architecture.</p></li>
+<li><p>Creating distributed, semi-anonymouse VPS micro-servers, hosted in peoples homes,
+has empowering legal ramifications and moves the internet towards a more reliable,
+distributed, and censorless architecture.</p></li>
 </ul>
 <p>The client software is composed of the following high-level features. Each feature needs a manager, so if you are
 interested in contributing, <a href="http://p2pvps.org">please let us know</a>:</p>
 <ul>
 <li>Governor</li>
 <li>Docker container with SSH</li>
-<li>Persistant Storage</li>
+<li>Persistent Storage</li>
 <li>Encryption</li>
 <li>Deployment Packages (pre-configured scripts for setting up apps like webservers, file sharing, etc.)</li>
 <li>Testing</li>
 </ul>
-<p>See more details in the <a href="client-specification.md">Client Specification</a>.</p>
+<p>See more details in the <a href="3.Client.md">Client Specification</a>.</p>
 <h2 id="serveroverviewahrefserveroverviewidserveroverviewclassdeeplinka">Server-Overview <a href="#Server-Overview" id="Server-Overview" class="deep-link">#</a></h2>
 <p>The primary purpose of the server software is to orchastrate the network of devices
 and facilitate financial transactions via OpenBazaar.
