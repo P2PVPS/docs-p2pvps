@@ -51,17 +51,39 @@ deployment repository. The P2P VPS Server repository was originally forked from 
 Additional Docker containers, described here, were added to support P2P VPS.</p>
 <p>A series of
 <a href="http://connextcms.com/page/videos">video tutorials</a> for ConnextCMS walk through
-the basic deployment of a server. </p>
+the basic deployment of a server. The
+<a href="https://github.com/P2PVPS/server-deployment">Server Deployment repository</a>
+contains step-by-step instructions specific to installing P2P VPS.</p>
 <h2 id="mongodbahrefmongodbidmongodbclassdeeplinka">MongoDB <a href="#MongoDB" id="MongoDB" class="deep-link">#</a></h2>
-<p>This is where information will go about this Docker container.</p>
+<p>P2P VPS uses the standard <a href="https://hub.docker.com/_/mongo/">MongoDB Docker image</a>
+hosted on Docker Hub. KeystoneJS REST APIs are used to interact with data stored
+in the database.</p>
 <h2 id="listingmanagerahreflistingmanageridlistingmanagerclassdeeplinka">Listing-Manager <a href="#Listing-Manager" id="Listing-Manager" class="deep-link">#</a></h2>
-<p>This is where information will go about this Docker container.</p>
+<p>The listing manager automates the maintenance of OpenBazaar listings that would
+otherwise require a human to do in order to maintain an OpenBazaar store. The
+role of the Listing Manager can be understood best by this workflow illustration:</p>
+<p><img src="images/workflow-thumb.jpg?raw=true" alt="Transaction Worflow" title="Transaction Worflow" /></p>
+<p><a href="images/workflow.jpg">Full Sized Image</a></p>
 <h2 id="openbazaarahrefopenbazaaridopenbazaarclassdeeplinka">OpenBazaar <a href="#OpenBazaar" id="OpenBazaar" class="deep-link">#</a></h2>
-<p>This is where information will go about this Docker container.</p>
+<p>This is a simple installation of the <a href="https://github.com/OpenBazaar/openbazaar-go">openbazaar-go</a>
+OpenBazaar server.</p>
 <h2 id="sshserverahrefsshserveridsshserverclassdeeplinka">SSH-Server <a href="#SSH-Server" id="SSH-Server" class="deep-link">#</a></h2>
-<p>This is where information will go about this Docker container.</p>
+<p>The SSH tunnel server will run inside its own Docker container. It is necessary
+to give user-level shell access in order to generate the reverse tunnel to the
+client devices. Keeping the SSH server isolated to it's own Docker container
+reduces the threat of giving out shell access.</p>
+<p><strong>It may be possible to allow reverse SSH connections without granting shell
+access to the server. Exploring this option needs to be a high priority.</strong></p>
 <h2 id="localtunnelahreflocaltunnelidlocaltunnelclassdeeplinka">LocalTunnel <a href="#LocalTunnel" id="LocalTunnel" class="deep-link">#</a></h2>
-<p>This is where information will go about this Docker container.</p>
+<p>The LocalTunnel server is also responsible for establishing a subdomain
+(like <strong>abc</strong>.p2pvps.com) and proxying connections from port 80 (HTTP) or port
+442 (HTTPS) to the rented device. The easiest way to do this is by leveraging
+a <a href="https://github.com/localtunnel/server">LocalTunnel Server</a>.</p>
+<p>While the project is still in its infancy, we can use the
+<a href="http://localtunnel.me">localtunnel.me</a> server, but
+we'll eventually need to set up our own server. The LocalTunnel server software
+expects to have the server to itself, without any competition for ports.
+Putting it inside a Docker container has proven problematic.</p>
             </div>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>
