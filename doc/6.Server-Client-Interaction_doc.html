@@ -18,15 +18,27 @@
 </ul>
 <h1 id="serverclientinteractions">Server Client Interactions</h1>
 <p>This page documents the interactions between the Server and Client from the
-perspective of API calls. The purpose of this documentation is to give visual
+perspective of API calls and the program workflow.
+The purpose of this documentation is to give visual
 aids and specifications to help programmers understand the code.</p>
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 <ul>
-<li>[Client Registration](#Client Registration)</li>
+<li><a href="#Client-Registration">Client-Registration</a></li>
+<li><a href="#Check-Expiration">Check-Expiration</a></li>
 </ul>
-<h2 id="clientregistrationahrefclientregistrationidclientregistrationclassdeeplinka">Client Registration <a href="#Client Registration" id="Client Registration" class="deep-link">#</a></h2>
-<p>Some intelligent discussion here.</p>
+<h2 id="clientregistrationahrefclientregistrationidclientregistrationclassdeeplinka">Client-Registration <a href="#Client-Registration" id="Client-Registration" class="deep-link">#</a></h2>
+<p>The first, most basic workflow is client registration. This is where the client
+device connects to the server, sets up it's Docker shell, and the server adds
+the client to marketplace of available devices for rent.</p>
 <p><img src="images/client-registration.jpg" alt="images/client-registration.jpg" /></p>
+<h2 id="checkexpirationahrefcheckexpirationidcheckexpirationclassdeeplinka">Check-Expiration <a href="#Check-Expiration" id="Check-Expiration" class="deep-link">#</a></h2>
+<p>The client device governor (<code>p2p-vps-client.js</code>) will periodically reach out to
+the server to check its expiration date.
+When the client device has reached it's expiration, it will destroy the current
+Docker container and wipe any persistent storage. It will then re-register
+with the server by going through the <a href="#client-registration">client registration</a>
+workflow above.</p>
+<p><img src="images/client-check-expiration.jpg" alt="images/client-check-expiration.jpg" /></p>
             </div>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>

@@ -206,9 +206,19 @@ a LocalTunnel Server.</span>
             <h3 class="toc-mod-title"><a href="6.Server-Client-Interaction_doc.html">6.Server-Client-Interaction</a></h3>
             <div class="toc-list">
                 
-                <a class="toc-item" href="6.Server-Client-Interaction_doc.html#Client Registration">
-                    <h4>Client Registration</h4>
-                    <span class="desc">Some intelligent discussion here.</span>
+                <a class="toc-item" href="6.Server-Client-Interaction_doc.html#Client-Registration">
+                    <h4>Client-Registration</h4>
+                    <span class="desc">The first, most basic workflow is client registration. This is where the client device connects to the server, sets up it's Docker shell, and the server adds
+the client to marketplace of available devices for rent.</span>
+                </a>
+                
+                <a class="toc-item" href="6.Server-Client-Interaction_doc.html#Check-Expiration">
+                    <h4>Check-Expiration</h4>
+                    <span class="desc">The client device governor (<code>p2p-vps-client.js</code>) will periodically reach out to the server to check its expiration date.
+When the client device has reached it's expiration, it will destroy the current
+Docker container and wipe any persistent storage. It will then re-register
+with the server by going through the client registration
+workflow above.</span>
                 </a>
                 
             </div>
