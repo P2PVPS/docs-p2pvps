@@ -8,3 +8,10 @@ Table of Contents:
 * [3. Client](docs/3.Client.md)
 * [4. Server](docs/4.Server.md)
 * [5. Server Deployment](docs/5.Server-Deployment.md)
+* [6. Server Client Interaction](docs/6.Server-Client-Interaction.md)
+* [7. Listing Manager](docs/7.Listing-Manager.md)
+
+
+Additional content:
+* [Contributors Guide](docs/y.Contributing.md)
+* [Rough Draft Specifications](z.Rough-Draft-Specs.md)
