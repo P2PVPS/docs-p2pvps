@@ -14,4 +14,4 @@ Table of Contents:
 
 Additional content:
 * [Contributors Guide](docs/y.Contributing.md)
-* [Rough Draft Specifications](z.Rough-Draft-Specs.md)
+* [Rough Draft Specifications](docs/z.Rough-Draft-Specs.md)
