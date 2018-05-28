@@ -1,3 +1,4 @@
 #!/bin/bash
 rm -rf ~/dashboard2/dist/doc
 cp -r doc ~/dashboard2/dist/
+cp -r docs/images ~/dashboard2/dist/doc/
