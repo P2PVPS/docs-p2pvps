@@ -25,6 +25,7 @@ aids and specifications to help programmers understand the code.</p>
 <ul>
 <li><a href="#Client-Registration">Client-Registration</a></li>
 <li><a href="#Check-Expiration">Check-Expiration</a></li>
+<li><a href="#Client-Check-In">Client-Check-In</a></li>
 </ul>
 <h2 id="clientregistrationahrefclientregistrationidclientregistrationclassdeeplinka">Client-Registration <a href="#Client-Registration" id="Client-Registration" class="deep-link">#</a></h2>
 <p>The first, most basic workflow is client registration. This is where the client
@@ -39,6 +40,13 @@ Docker container and wipe any persistent storage. It will then re-register
 with the server by going through the <a href="#client-registration">client registration</a>
 workflow above.</p>
 <p><img src="images/client-check-expiration.jpg" alt="images/client-check-expiration.jpg" /></p>
+<h2 id="clientcheckinahrefclientcheckinidclientcheckinclassdeeplinka">Client-Check-In <a href="#Client-Check-In" id="Client-Check-In" class="deep-link">#</a></h2>
+<p>The <code>connect-client.js</code> application running inside the Client Docker container is
+responsible for establishing a reverse SSH connection with the server. It is also
+responsible for sending a heart beat (or check-in signal) to the server to indicate
+that it is connected to the network, and the software inside the Docker container
+is running correctly.</p>
+<p><img src="images/client-check-in.jpg" alt="images/client-check-in.jpg" /></p>
             </div>
         </div>
         <script src="assets_/js/lib/jquery.js"></script>

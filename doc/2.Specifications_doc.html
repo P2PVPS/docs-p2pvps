@@ -29,9 +29,18 @@ any device that is capable of running Docker. The focus of the client software i
 to the server so the device can serve webpages, web apps, and distributed apps
 (dapps), accessible from the general internet.</li>
 </ul>
-<p><strong>The server software</strong> is a Vue.js-based theme for <a href="http://connextcms.com">ConnextCMS</a>.
-It gives <em>Device Owners</em> a dashboard for managing the devices they rent out on the marketplace.
-It also gives prospective <em>Renters</em> an easy way to filter VPSs by benchmarks, in order to find the
+<p><small></p>
+<ul>
+<li><a href="https://github.com/P2PVPS/p2pvps-client">Client Repository</a>
+</small></li>
+</ul>
+<p><strong>The server software</strong> is composed of a Vue.js-based front end and a
+<a href="https://github.com/christroutner/babel-free-koa2-api-boilerplate">back end API</a>
+running Node.js, MongoDB.
+The user interface (UI) gives <em>Device Owners</em> a dashboard for managing the
+devices they rent out on the marketplace.
+It also gives prospective <em>Renters</em> an easy way to filter VPSs by benchmarks,
+in order to find the
 best price for their desired use. It's primary functions are:</p>
 <ul>
 <li>Register incoming connections from client devices.</li>
@@ -39,16 +48,31 @@ best price for their desired use. It's primary functions are:</p>
 <li>Create listing on the OpenBazaar network to allow Client devices to be rented.</li>
 <li>Establish connection with other servers.</li>
 </ul>
-<p><strong>The server deployment software</strong> is a collection of Dockerized packages, all orchestrated
-with Docker Compose. This software is targeted for cloud VPS hosts like Digital Ocean, Vultr,
-AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
+<p><small></p>
 <ul>
-<li><a href="http://connextcms.com">ConnextCMS</a> running with the server software explained above.</li>
+<li><a href="https://github.com/P2PVPS/p2pvps-dashboard2">Front End Repository</a></li>
+<li><a href="https://github.com/P2PVPS/p2pvps-server2">Back End Repository</a>
+</small></li>
+</ul>
+<p><strong>The server deployment software</strong> is a collection of Dockerized packages,
+all orchestrated with Docker Compose. This software is targeted for cloud
+VPS hosts like Digital Ocean, Vultr, AWS EC2, etc running Ubuntu Linux. The
+major components consist of:</p>
+<ul>
+<li><a href="https://github.com/P2PVPS/p2pvps-server2">Koa API Server</a>.</li>
 <li>A MongoDB instance for managing data.</li>
 <li>An <a href="http://openbazaar.org">OpenBazaar</a> instance for conducting rental transactions.</li>
-<li>A Listing Manager that maintains the OpenBazaar store inventory and fulfills transactions.</li>
+<li>A <a href="https://github.com/P2PVPS/listing-manager">Listing Manager</a> that maintains
+the OpenBazaar store inventory and fulfills transactions.</li>
 <li>An SSH server for managing reverse SSH tunnel connections.</li>
-<li>A LocalTunnel server for managing the networking of HTTP (port 80) and HTTPS (port 443) connections.</li>
+<li>A <a href="https://github.com/localtunnel/localtunnel">LocalTunnel</a> server for
+managing the networking of HTTP (port 80) and HTTPS (port 443) connections.</li>
+</ul>
+<p><small></p>
+<ul>
+<li><a href="https://github.com/P2PVPS/server-deployment2">Server Deployment Repository</a></li>
+<li><a href="https://github.com/P2PVPS/listing-manager">Listing Manager</a>
+</small></li>
 </ul>
 <h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
 <ul>
@@ -63,30 +87,34 @@ AWS EC2, etc running Ubuntu Linux. The major components consist of:</p>
 <li><em>Client</em> or <em>Device</em> includes IoT devices, servers, and anything in between.
 This term encompasses any device capable of running Docker and executing the
 <a href="https://github.com/P2PVPS/p2pvps-client">client software</a></li>
-<li><em>Server</em> is an internet connected computer capable of running the software in this repository.</li>
+<li><em>Server</em> is an internet connected computer, with a domain name, capable of running the
+<a href="https://github.com/P2PVPS/server-deployment2">Server Deployment Repository</a> software.</li>
 <li><em>Device Owners</em> are the owners of the Client devices.</li>
 <li><em>Renters</em> are users who rent the Client device from the Device Owners.</li>
 </ul>
-<p>A simple diagram of a P2P VPS Marketplace:</p>
+<p>A simple diagram of a P2P VPS Network:</p>
 <p><img src="images/simple-diagram.jpg?raw=true" alt="Simple server client diagram" title="Simple server client diagram" /></p>
 <h2 id="clientoverviewahrefclientoverviewidclientoverviewclassdeeplinka">Client-Overview <a href="#Client-Overview" id="Client-Overview" class="deep-link">#</a></h2>
 <p>The purpose of the client side software is to create a virtual private server
 (<strong>VPS</strong>) environment similar to those hosted by cloud companies like Digital
 Ocean or AWS EC2. This is achieved on an IoT device by running a Linux shell inside
 a Docker container. Small, inexpensive, distributed hardware like Raspberry Pi
-minicomputers now posses the computational power to host such an environment.</p>
-<p>This setup has the following advantages:</p>
+minicomputers now posses the computational power to host such an environment.
+So can Virtual Machines created by VirtualBox.</p>
+<p>This system has the following features:</p>
 <ul>
-<li><p>By running the environment in a virtual system like Docker, the device can be easily reset to a known state
-when the <em>renter</em> is done using it.</p></li>
-<li><p>By using reverse SSH to connect to a central server, the <em>renters</em> can be provided with a command line interface to the device while
-by-passing network firewalls. However, this creates network risks that device <em>owners</em> need to be aware of.</p></li>
+<li><p>By running the environment in a virtual system like Docker, the device can be
+easily reset to a known state when the <em>renter</em> is done using it.</p></li>
+<li><p>By using reverse SSH to connect to a central server, the <em>renters</em> can be provided
+with a command line interface to the device while by-passing network firewalls.
+However, this creates network risks that device <em>owners</em> need to be aware of.</p></li>
 <li><p>Renting out the computing power of the hardware allows hardware <em>owners</em> to profit from their hardware and internet connection, while promoting a decentralized internet.</p></li>
 <li><p>Creating distributed, semi-anonymouse VPS micro-servers, hosted in peoples homes,
 has empowering legal ramifications and moves the internet towards a more reliable,
 distributed, and censorless architecture.</p></li>
 </ul>
-<p>The client software is composed of the following high-level features. Each feature needs a manager, so if you are
+<p>The client software is composed of the following high-level features. Each feature
+needs a manager, so if you are
 interested in contributing, <a href="http://p2pvps.org">please let us know</a>:</p>
 <ul>
 <li>Governor</li>
@@ -100,9 +128,11 @@ interested in contributing, <a href="http://p2pvps.org">please let us know</a>:<
 <p>The primary purpose of the server software is to orchestrate the network of devices
 and facilitate financial transactions via OpenBazaar.
 Its secondary purpose is to connect with other servers, in order to establish a
-peer-to-peer (P2P) marketplace, with no central point of failure. These goals are achieved by splitting the server into two software stacks: The <em>front end</em> and the <em>back end</em>.</p>
+peer-to-peer (P2P) marketplace, with no central point of failure. These goals are
+achieved by splitting the server into two software stacks: The <em>front end</em> and
+the <em>back end</em>.</p>
 <p><strong>The front end</strong> of the server has to do will all the activity that takes place
-in a web browser. It's primarily concerned with the Vue.js applications that allow
+in a web browser. It's primarily concerned with the Vue.js application that allows
 renters and owners to manage devices. It is composed of the following high-level
 features:</p>
 <ul>
@@ -113,8 +143,9 @@ features:</p>
 used to coordinate the different pieces of software in the P2P VPS suite.
 It is composed of the following high level features:</p>
 <ul>
-<li>Database API</li>
-<li>Website and Content Management System (CMS)</li>
+<li>Database</li>
+<li>REST API</li>
+<li>OpenBazaar Transactions</li>
 <li>Port Control</li>
 </ul>
 <h2 id="serverdeploymentoverviewahrefserverdeploymentoverviewidserverdeploymentoverviewclassdeeplinka">Server-Deployment-Overview <a href="#Server-Deployment-Overview" id="Server-Deployment-Overview" class="deep-link">#</a></h2>
@@ -124,7 +155,6 @@ server. This is accomplished by modularizing the major pieces of software into D
 containers and then orchestrating their communication with Docker Compose. It is
 made up of the following high level features:</p>
 <ul>
-<li>ConnextCMS</li>
 <li>MongoDB</li>
 <li>OpenBazaar</li>
 <li>Listing Manager</li>
@@ -144,9 +174,9 @@ The client then launches a Docker container with a minimal Linux environment.
 The container makes a reverse SSH connection to forward its local SSH port to the
 server's new port, tunneling through any firewalls, and creating a command line
 interface accessible to the renter.</p>
-<p>The Server operates a minimal SSH server running inside a Docker container and
-another <a href="https://github.com/localtunnel/server">LocalTunnel server</a>
-running inside it's own Docker container. This SSH shell allows connection to the
+<p>The Server operates a minimal SSH server and
+<a href="https://github.com/localtunnel/server">LocalTunnel server</a>, both
+running inside their own Docker container. This SSH shell allows connection to the
 client device via SSH. The LocalTunnel server also forwards port 80 (http) and
 port 443 (https) from the client device. A subdomain is created
 on the server allowing access to these three ports. This allows renters to
@@ -155,18 +185,19 @@ serve web pages and web apps from a human-readable URL.</p>
 <p><img src="images/client-server-networking-workflow.jpg" alt="Network Orchestration Workflow" /></p>
 <h3 id="financialtransactions">Financial Transactions</h3>
 <p>Transactions between Owners and Renters will take place over the
-<a href="http://openbazaar.org/">OpenBazaar</a> (<strong>OB</strong>) network.
+<a href="http://openbazaar.org/">OpenBazaar</a> (<strong>OB</strong>) and Bitcoin Cash (BCH) network.
 This requires that the buyer and seller each have a local installation of
-OpenBazaar capable of sending a receiving cryptocurrency. Cryptocurrencies have the
+OpenBazaar capable of sending a receiving Bitcoin Cash. Cryptocurrencies have the
 advantage of allowing server owners to create semi-anonymous markets. It also
-allows P2P VPS servers to facilitate trade between Owners and Renters without
-having any liability with regard to financial transactions.</p>
-<p>Rental of devices will be billed by the hour.
-When a device is registered, its hardware (memory, CPU, hard-drive space) will be verified.
-Owners can then place the device for rent on the P2P VPS marketplace, or simply
-reserve it for personal use.
+allows P2P VPS servers to manage payments between Owners and Renters in a clear
+and transparent manner.</p>
+<p>Rental of devices will be billed by the hour, day, week, or month.
+When a device is registered, its hardware (memory, CPU, hard-drive space) will be
+automatically verified by the client software.
+Owners can then place the device for rent on the P2P VPS marketplace, or
+simply reserve it for personal use (self renting).
 The device owner can set the hourly rate they are willing to rent the device for
-on the marketplace.</p>
+on the open marketplace.</p>
 <p>A renter agrees to the rental contract by purchasing the contract on the
 OpenBazaar network for a fixed length of time.
 The listing for the device is then removed from the P2P VPS OpenBazaar store.
@@ -175,18 +206,17 @@ along with the receipt for the transaction, inside the OB client.</p>
 <p>As long as the device is connected to the internet, the device
 will be dedicated for the renters use. Once the length of the contract expires,
 the client device is reset and placed back on the marketplace.</p>
-<p>In the future, a feature will be developed to allow renters to extend the length
-of their contract. If the client device goes offline and can not fulfill the
-terms of the contract, an OpenBazaar dispute is activated and a moderator can
-pro-rate and refund part of the transaction to the renter.
-At the moment, dispute resolution is a manual process, but it will be automated
-in the future.</p>
-<p>At some regular interval, typically a month, it is up to the Server owner to distribute
-earned money to the Device Owners. An API for the server will be provided to query
-all payments owed to Device Owners. Payment will be most easily facilitated if the
-Device Owners have OpenBazaar wallets, as that is the same wallet that Clients and the
-Server will use. It is up to the Server owner and Device Owners to negotiate costs
-and fees.</p>
+<p>In the future, it will be possible to generate a renew contract and extend the
+same rental session currently under use.
+Payments will be distributed at the end of each rental period (hour, day, week, month).
+If the client device goes offline and can not fulfill the
+terms of the contract, the contract is pro-rated and refund is automatically sent
+back to the renter. An uptime metric for each device updated at the end of each
+contract.</p>
+<p>Server owners are able to set a percentage of each transaction they will receive
+in exchange for hosting a network node. Device owners can easily configure the
+client to connect to any server. In the future, a blockchain based reputation
+system will be used to allow servers and device owners to rate one another.</p>
 <h3 id="federatedservers">Federated Servers</h3>
 <p>Server software will be able to establish connections with other servers at the
 desire of the server administrator.

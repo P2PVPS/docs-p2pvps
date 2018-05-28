@@ -20,7 +20,7 @@
 <p>This document contains the specifications for the <strong>Server</strong> software. The Server
 software is split into two domains: the <em>front end</em> and <em>back end</em>.</p>
 <p><strong>The front end</strong> of the server has to do will all the activity that takes place
-in a web browser. It's primarily concerned with the Vue.js applications that allow
+in a web browser. It's primarily concerned with the Vue.js application that allows
 renters and owners to manage devices. It is composed of the following high-level
 features:</p>
 <ul>
@@ -31,8 +31,9 @@ features:</p>
 used to coordinate the different pieces of software in the P2P VPS suite.
 It is composed of the following high level features:</p>
 <ul>
-<li>Database API</li>
-<li>Website and Content Management System (CMS)</li>
+<li>Database</li>
+<li>REST API</li>
+<li>OpenBazaar Store</li>
 <li>Port Control</li>
 </ul>
 <p>The sections below detail the specifications for each of these features:</p>
@@ -40,18 +41,19 @@ It is composed of the following high level features:</p>
 <ul>
 <li><a href="#Rental-Search-UI">Rental-Search-UI</a></li>
 <li><a href="#Device-Management-Dashboard-UI">Device-Management-Dashboard-UI</a></li>
-<li><a href="#Database-API">Database-API</a></li>
-<li><a href="#Content-Management-System-">Content-Management-System-()</a></li>
-<li><a href="#OpenBazaar-Transactions">OpenBazaar-Transactions</a></li>
+<li><a href="#Database">Database</a></li>
+<li><a href="#REST-API">REST-API</a></li>
+<li><a href="#OpenBazaar-Store">OpenBazaar-Store</a></li>
 <li><a href="#Port-Control">Port-Control</a></li>
 <li><a href="#Testing">Testing</a></li>
 </ul>
 <h2 id="rentalsearchuiahrefrentalsearchuiidrentalsearchuiclassdeeplinka">Rental-Search-UI <a href="#Rental-Search-UI" id="Rental-Search-UI" class="deep-link">#</a></h2>
-<p>At present, the rental search user interface (<strong>UI</strong>) has not been designed.</p>
+<p>The <em>Rental Listing</em> view allows users to quickly search and sort for devices
+on the network that meet their criteria. Text search will be available, as well
+as filtering and sorting by metrics such as price, uptime, memory, diskspace, and
+geographic location. These metrics will be automatically validated by software
+running on the device whenever possible.</p>
 <ul>
-<li><p>This will be a publically-accessible page that lets potential renters browse
-the devices available for rent on a server. Rental listings on server peers
-(other cooperative servers) will also be listed.</p></li>
 <li><p>Controls will be implemented to allow the user to search through listings by metrics
 such as price, ratings, memory size, disk space, internet connection speed, etc.</p></li>
 <li><p>When a desired listing is found, the user will be able to click on a link that
@@ -60,21 +62,22 @@ make a purchase. If their computer can not do this automatically, a link will be
 provided to a page with directions to access the OB listing manually.</p></li>
 </ul>
 <h2 id="devicemanagementdashboarduiahrefdevicemanagementdashboarduiiddevicemanagementdashboarduiclassdeeplinka">Device-Management-Dashboard-UI <a href="#Device-Management-Dashboard-UI" id="Device-Management-Dashboard-UI" class="deep-link">#</a></h2>
-<p>An early prototype of the Device Management Dashboard can be accessed at
-<a href="http://p2pvps.net">p2pvps.net</a>. The dashboard allows device owners to manage
+<p>The <em>Owned Devices</em> view allows device owners to manage
 the devices subscribed to the P2P VPS server. It's primary features are:</p>
 <ul>
 <li><p>An input form can be accessed to register new devices with the server. This
 generates the GUID needed to register a client device with the server.</p></li>
-<li><p>A standard element is placed within the page for each device registered with the
-server. The element displays the connection status of each device.</p></li>
+<li><p>A standardized component is placed within the page for each device registered with the
+server. The element displays the connection status (and other information) of each device.</p></li>
 </ul>
 <p>Here is a mockup of the current dashboard. This will be heavily modified in the future:
 <img src="images/owned-devices-mockup-600px.jpg?raw=true" alt="Owned Devices" title="Owned Devices Mock Up" /></p>
 <p><a href="images/owned-devices-mockup.JPG?raw=true" title="Owned Devices Mock Up">Full Sized Image</a></p>
 <hr />
 <h1 id="backend">Back End</h1>
-<h2 id="databaseapiahrefdatabaseapiiddatabaseapiclassdeeplinka">Database-API <a href="#Database-API" id="Database-API" class="deep-link">#</a></h2>
+<h2 id="databaseahrefdatabaseiddatabaseclassdeeplinka">Database <a href="#Database" id="Database" class="deep-link">#</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/MongoDB">MongoDB</a> is the database used by the
+P2P VPS server.</p>
 <p>Each device registered into the marketplace gets two database models,
 called <code>devicePublicModel</code> and <code>devicePrivateModel</code>.
 Most data about a device is assumed to be public. Specifically, private things
@@ -82,62 +85,50 @@ like the SSH port, username, password, and user account of the renter is kept
 in the private DB model. Security checks are done to ensure only admins,
 device owners, or active device renters can access the private model.</p>
 <ul>
-<li><p>Updating data in the database should only be done through REST API calls.
+<li>Updating data in the database should only be done through REST API calls.
 Complex database models and complex manipulation of those models tends to lead
 to bugs. Keeping functions small, modular, and testible via REST API calls prevents
-hard-to-find bugs.</p></li>
-<li><p>REST-ful APIs for this server are based on KeystoneJS API calls used by
-<a href="https://github.com/skagitpublishing/connextCMS">ConnextCMS</a>
-and based on
-<a href="https://gist.github.com/JedWatson/9741171#file-routes-index-js-L24">this gist by Jed Watson</a>.
-They include the following basic CRUD commands. All API calls outside this
-standard will be listed separately.</p>
-<ul>
-<li><em>GET</em> <code>/list</code> - list all items in the collection.</li>
-<li><em>POST</em> <code>/create</code> - create a new item in the database.</li>
-<li><em>GET</em> <code>/:id</code> - return details of the database item based on its GUID.</li>
-<li><em>POST</em> <code>/:id/update</code> - update a specific item in the database.</li>
-<li><em>GET</em> <code>/:id/delete</code> - remove a specific item from the database.</li></ul></li>
-<li><p>The following APIs have been created for the server:</p>
-<ul>
-<li><p><code>devicePublicData</code>:</p>
-<ul>
-<li><p><code>/api/devicePublicData/*</code> - is used to work with public data for a Client device.</p></li>
-<li><p><code>/api/devicePublicData/register</code> - is used by Client devices to register
-themselves with the server.</p></li>
-<li><p><code>/api/devicePublicData/listById/:id</code> - is used to list all devices associated
-with a user account (GUID); both as renter or owner.</p></li></ul></li>
-<li><p><code>devicePrivateData</code>:</p>
-<ul>
-<li><p><code>/api/devicePrivateData/*</code> - is used to work with private data for a Client
-device. This data is only accessible to admins, device owners, or device
-renters. <code>/list</code> endpoint not implemented for this API.</p></li>
-<li><p><code>/api/devicePrivateData/listById/:id</code> - is used to list all devices associated
-with a user account (GUID); both as renter or owner.</p></li></ul></li>
-<li><p>Port Control:</p>
-<ul>
-<li><code>/api/portControl/*</code> - is used by the Client device to coordinate available SSH
-ports on the server.</li></ul></li></ul></li>
+hard-to-find bugs.</li>
 </ul>
-<h2 id="contentmanagementsystemcmsahrefcontentmanagementsystemidcontentmanagementsystemclassdeeplinka">Content-Management-System-(CMS) <a href="#Content-Management-System-" id="Content-Management-System-" class="deep-link">#</a></h2>
-<p>Content will be managed with <a href="http://connextcms.com">ConnextCMS</a>, an extension
-for <a href="http://keystonejs.com">KeystoneJS</a>.
-This covers the scope of blog posts, the home page, about page, and other web pages.</p>
-<p>The front end user interfaces will be served by this content management system (CMS).</p>
-<h2 id="openbazaartransactionsahrefopenbazaartransactionsidopenbazaartransactionsclassdeeplinka">OpenBazaar-Transactions <a href="#OpenBazaar-Transactions" id="OpenBazaar-Transactions" class="deep-link">#</a></h2>
-<p><a href="http://openbazaar.org">OpenBazaar</a> (<strong>OB</strong>) will be leveraged to handle the
-transactions between Owners and Renters. When an Owner submits their device to
+<h2 id="restapiahrefrestapiidrestapiclassdeeplinka">REST-API <a href="#REST-API" id="REST-API" class="deep-link">#</a></h2>
+<p>The P2P VPS server is based off this
+<a href="https://github.com/christroutner/babel-free-koa2-api-boilerplate">Koa Boilerplate</a>
+for creating a REST API server.</p>
+<ul>
+<li><p>REST-ful APIs for this server include the following basic CRUD commands.
+All API calls outside this standard will be listed separately.</p>
+<ul>
+<li><em>GET</em> <code>/api/&lt;collection&gt;</code> - list all items in the collection.</li>
+<li><em>POST</em> <code>/api/&lt;collection&gt;</code> - create a new item in the collection.</li>
+<li><em>GET</em> <code>/api/&lt;collection&gt;/:id</code> - get a single item from the collection
+based on its GUID.</li>
+<li><em>PUT</em> <code>/api/&lt;collection&gt;/:id</code> - update a specific item in the database.</li>
+<li><em>DELETE</em> <code>/api/&lt;collection&gt;/:id</code> - remove a specific item from the database.</li></ul></li>
+<li><p><a href="https://p2pvps.net/docs/">Separate API documentation</a>
+is generated using <a href="http://apidocjs.com/">apidocs</a>
+based on comments in the server code.</p></li>
+</ul>
+<h2 id="openbazaarstoreahrefopenbazaarstoreidopenbazaarstoreclassdeeplinka">OpenBazaar-Store <a href="#OpenBazaar-Store" id="OpenBazaar-Store" class="deep-link">#</a></h2>
+<p>Each P2P VPS server is also an <a href="http://openbazaar.org">OpenBazaar</a> (<strong>OB</strong>) store.
+OB will be leveraged to handle the
+transactions between Device Owners and Renters. When a Device Owner submits
+their device to
 the P2P VPS Marketplace, the Server will be responsible for generating a contract
 on the OpenBazaar network. Renters then purchase the contract using their own
 OpenBazaar application. Login and password for the rented device is passed to them
 through the 'Fulfilled' stage of the ordering process.</p>
-<p>The server will run an OpenBazaar server, contained in it's own Docker container.</p>
+<p>The OpenBazaar store is contained in it's own Docker container. It uses the
+<a href="https://hub.docker.com/r/openbazaar/server/tags/">latest Dockerhub image</a> of
+the <a href="https://github.com/OpenBazaar/openbazaar-go">openbazaar-go server</a>. The
+server communicates with the store via the
+<a href="http://api.openbazaar.org">OpenBazaar REST API</a>, using the
+<a href="https://github.com/P2PVPS/openbazaar-node">openbazaar-node</a> library.</p>
 <p>OB contracts are managed using the <code>obContract</code> database model. This model has the following properties:</p>
 <ul>
 <li><code>id</code> - The unique MongoDB UUID for each record.</li>
 <li><code>ListingUri</code> - The OB URI need to retrieve the specific listing in the OB client</li>
 <li><code>Price</code> - The price in USD</li>
-<li><code>Experation</code> - When the contract will expire if not purchased.</li>
+<li><code>Expiration</code> - When the contract will expire if not purchased.</li>
 <li><code>Title</code> - Title used in the listing</li>
 <li><code>Description</code> - Description used in the listing</li>
 <li><code>imageHash</code> - An IPFS hash link to an image on the OB network.</li>
@@ -150,34 +141,26 @@ through the 'Fulfilled' stage of the ordering process.</p>
 <li><code>released</code> - off the market, device needs reset and relisting.</li>
 <li><code>expired</code> - the listing has expired on the OB market and needs to be relisted.</li></ul></li>
 </ul>
-<p>In addition to the API endpoints listed in <a href="#Database-API">Database API</a>, for managing the
-<code>obContract</code> model, the following API endpoints are used.
-These API endpoints can only be executed by server admins or device owners:</p>
-<ul>
-<li><em>POST</em> <code>/api/createMarketListing/:id</code> - Creates a new OB market listing for the device.</li>
-<li><em>GET</em> <code>/api/removeMarketListing/:id</code> - Remove the listing from the OB marketplace.</li>
-<li><em>POST</em> <code>/api/updateListing/:id</code> - Updates the OB listing with data from the <code>obContract</code> model associated with the listing.</li>
-</ul>
 <h2 id="portcontrolahrefportcontrolidportcontrolclassdeeplinka">Port-Control <a href="#Port-Control" id="Port-Control" class="deep-link">#</a></h2>
 <p>This is a Database API that is used to manage a list of available SSH ports for
 making reverse SSH tunnel connections between the Server and Client devices.</p>
 <ul>
-<li><em>POST</em> <code>/api/portcontrol/create</code> - Request a new SSH port and generate a
-random username and password for the client.</li>
-<li><em>GET</em> <code>/api/portcontrol/:id/remove</code> - Release a port.</li>
+<li><p><em>POST</em> <code>/api/sshport</code> - Request a new SSH port and generate a
+random username and password for the client.</p></li>
+<li><p><em>DELETE</em> <code>/api/sshport/:id</code> - Release a port.</p></li>
 </ul>
 <h2 id="testingahreftestingidtestingclassdeeplinka">Testing <a href="#Testing" id="Testing" class="deep-link">#</a></h2>
 <p>Testing of the server code will be different from the standpoint <em>front end</em> and
 <em>back end</em>.</p>
 <p>Testing of <strong>front end</strong> code will use the same test-suite provided by the
-<a href="https://github.com/vuejs-templates/webpack">vue-template/webpack repository</a>,
-which this project was generated from. Namely, Mocha will be used for unit tests
+<a href="https://github.com/vuejs-templates/webpack">vue-template/webpack repository</a>.
+Namely, Mocha will be used for unit tests
 and Karma will be used for end-to-end testing. We badly need a contributor to
 help us setup and maintain a suite of testing scripts and set up Continuous
 Integration testing.</p>
-<p>Testing of the <strong>back end</strong> will most likely use the <a href="http://sinonjs.org/">Sinon</a>
-test framework and <a href="https://github.com/avajs/ava">Ava</a> as the test runner. But these
-choices are open for debate.</p>
+<p>Testing of the <strong>back end</strong> also uses Mocha as the test-runner and Chai as
+the assertion engine. Travis CI is the continuous integration service and
+Coveralls is the test coverage reporting service.</p>
 <p><a href="http://p2pvps.org/contact-us/">Contact us</a> if you'd like to help with the testing effort.</p>
             </div>
         </div>

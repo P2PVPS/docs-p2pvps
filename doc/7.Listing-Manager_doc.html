@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Listing Manager : P2P VPS Documentation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets_/css/shCore.css">
+        <link rel="stylesheet" href="assets_/css/shThemeDefault.css">
+        <link rel="stylesheet" href="assets_/css/main.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="content">
+
+<ul id="topnav">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="#toc">TOC</a></li>
+</ul>
+<h1 id="listingmanager">Listing Manager</h1>
+<p>The Listing Manager is a node application included in the
+<a href="https://github.com/P2PVPS/server-deployment">server deployment</a> repository.
+This application is responsible for managing the OpenBazaar store by adding
+new listings, removing invalid listings, and fulfil new orders as they come in.
+This document describes the different workflows between the Listing Manager,
+the server, and the OpenBazaar store.</p>
+<h2 id="tableofcontentsahreftocnametocclassdeeplinka">Table of Contents <a href="#toc" name="toc" class="deep-link">#</a></h2>
+<ul>
+<li><a href="#Fulfill-Orders">Fulfill-Orders</a></li>
+<li><a href="#Delist-Disconnected-Clients">Delist-Disconnected-Clients</a></li>
+<li><a href="#Detect-And-Refund-Disconnected-Rentals">Detect-And-Refund-Disconnected-Rentals</a></li>
+<li><a href="#Fulfill-Renewals">Fulfill-Renewals</a></li>
+<li><a href="#Remove-Orphaned-Renewals">Remove-Orphaned-Renewals</a></li>
+</ul>
+<h2 id="fulfillordersahreffulfillordersidfulfillordersclassdeeplinka">Fulfill-Orders <a href="#Fulfill-Orders" id="Fulfill-Orders" class="deep-link">#</a></h2>
+<p>This is the primary task of the Listing Manager. It periodically polls the OpenBazaar
+store for new order notifications. If one is detected, the Listing Manager adds the
+login, password, and port information to the order and then marks it as Fulfilled.</p>
+<p><img src="images/listing-manager-fulfill-order.jpg" alt="images/listing-manager-fulfill-order.jpg" /></p>
+<h2 id="delistdisconnectedclientsahrefdelistdisconnectedclientsiddelistdisconnectedclientsclassdeeplinka">Delist-Disconnected-Clients <a href="#Delist-Disconnected-Clients" id="Delist-Disconnected-Clients" class="deep-link">#</a></h2>
+<p>If a <em>client listed for rent on the OpenBazaar store</em> fails to check in with the
+server after some grace period, it must
+be considered in a disconnected state. The Listing Manager then removes the
+rental listing from the OpenBazaar store.</p>
+<p><img src="images/listing-manager-delist-disconnected-clients.jpg" alt="images/listing-manager-delist-disconnected-clients.jpg" /></p>
+<h2 id="detectandrefunddisconnectedrentalsahrefdetectandrefunddisconnectedrentalsiddetectandrefunddisconnectedrentalsclassdeeplinka">Detect-And-Refund-Disconnected-Rentals <a href="#Detect-And-Refund-Disconnected-Rentals" id="Detect-And-Refund-Disconnected-Rentals" class="deep-link">#</a></h2>
+<p>If a <em>client that is actively being rented</em> fails to check in with the server after
+some grace period, it must be considered in a disconnected state. The Listing Manager
+resets the device (when it comes online) by manipulating the expiration date. It also
+needs to automatically generate a pro-rated refund to the renter.</p>
+<p><img src="images/listing-manager-refund-rentals.jpg" alt="images/listing-manager-refund-rentals.jpg" /></p>
+<h2 id="fulfillrenewalsahreffulfillrenewalsidfulfillrenewalsclassdeeplinka">Fulfill-Renewals <a href="#Fulfill-Renewals" id="Fulfill-Renewals" class="deep-link">#</a></h2>
+<p>In addition to polling the OpenBazaar store for new rental orders, the Listing
+Manager also needs to poll purchases of renewal contracts. This allows renters
+to renew the rental agreement and continue using the rented Client.</p>
+<p><strong>Diagram Here</strong></p>
+<h2 id="removeorphanedrenewalsahrefremoveorphanedrenewalsidremoveorphanedrenewalsclassdeeplinka">Remove-Orphaned-Renewals <a href="#Remove-Orphaned-Renewals" id="Remove-Orphaned-Renewals" class="deep-link">#</a></h2>
+<p>If a renewal listing hangs out on the OpenBazaar store for more than hour, it
+is considered 'orphaned'. In this case, the Listing Manager needs to remove that
+listing from the OpenBazaar store.</p>
+<p><strong>Diagram Here</strong></p>
+            </div>
+        </div>
+        <script src="assets_/js/lib/jquery.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shCore.js"></script>
+        <script src="assets_/js/lib/syntax-highlighter/shAutoloader.js"></script>
+        <script src="assets_/js/main.js"></script>
+    </body>
+</html>
+
