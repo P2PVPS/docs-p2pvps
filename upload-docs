@@ -1,2 +1,3 @@
 #!/bin/bash
-cp -r doc ~/docker-connextcms-p2pvps/public
+rm -rf ~/dashboard2/dist/doc
+cp -r doc ~/dashboard2/dist/
